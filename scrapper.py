@@ -2,19 +2,17 @@ import requests
 from bs4 import BeautifulSoup
 import matplotlib.pyplot as plt
 
-# Step 1: Identify the URL
 url = 'https://www.speedrun.com/sm63?h=Any-Normal&x=7kj99423-68kojzn2.5leo4mqo'
 
-# Step 2: Send HTTP request and parse HTML
+#Parse the html
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 
-# Step 3: Extract data
-# (Assuming player names and run times are in specific HTML elements)
+#Extract desired data
 player_names = []
 run_times = []
 
-table = soup.find('table', {'class': 'leaderboard-table'})
+table = soup.find('table', {'class': 'w-full whitespace nowarp'})
 rows = table.find_all('tr')
 
 for row in rows[1:]:  # Skip header row
