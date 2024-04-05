@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import matplotlib.pyplot as plt
 
+
 url = 'https://www.speedrun.com/sm63?h=Any-Normal&x=7kj99423-68kojzn2.5leo4mqo'
 
 #Parse the html
@@ -12,23 +13,17 @@ soup = BeautifulSoup(response.text, 'html.parser')
 player_names = []
 run_times = []
 
-table = soup.find('table', {'class': 'w-full whitespace nowarp'})
-rows = table.find_all('tr')
+table = soup.find_all('table')[0]
+world_titles = table.find_all('th')
+world_table_titles=[title.text.strip() for title in world_titles]
+print(world_table_titles)
+data_table = [world_table_titles]
 
-for row in rows[1:]:  # Skip header row
-    cells = row.find_all('td')
-    player_names.append(cells[1].text.strip())  # Assuming player names are in the second column
-    run_times.append(cells[2].text.strip())    # Assuming run times are in the third column
-
-# Step 4: Process the data (convert run times to numeric format, etc.)
-
-# Step 5: Create the chart
-plt.bar(player_names[:10], run_times[:10])  # Example: Creating a bar chart for the top 10 players
-plt.xlabel('Player Name')
-plt.ylabel('Run Time')
-plt.title('Leaderboard')
-plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
-plt.tight_layout()
-
-# Step 6: Display or save the chart
-plt.show()
+column_data = table.find_all('tr')
+for row in column_data[2:]:
+    row_data=row.find_all('td')
+    individual_row_data = [data.text.strip() for data in row_data]
+    print(individual_row_data)
+    data_table.append(individual_row_data)
+print(data_table)
+    
