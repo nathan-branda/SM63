@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import matplotlib.pyplot as plt
 import re
 
 #User input of speedrun.com url
@@ -20,7 +19,7 @@ def html_parse(url: str) -> str:
 
 #Allows user input for desired values, returns a string set of choices
 def wanted_fields() -> list[str]:
-    possible_values=['Player', 'Time', 'Date', 'Timing']
+    possible_values=['Player', 'Time', 'Date', 'Timing']#Last field is different by game and there may be more fields 
     desired_values=list()
     for field in possible_values:
         while(True):
@@ -48,6 +47,16 @@ def wanted_indeces(fields) -> list[int]:
         indeces.append(5)
     return indeces
 
+#Takes an input of a table from BeautifulSoup and returns the raw data from that table
+def get_raw_data(table):
+    raw_data = []
+    column_data = table.find_all('tr')
+    for row in column_data[2:]:
+        row_data = row.find_all('td')
+        individual_row_data = [data.text.strip() for data in row_data]
+        raw_data.append(individual_row_data)
+
+
 def main():
     url = input_url()
     soup = html_parse(url)
@@ -56,12 +65,6 @@ def main():
     data_table.append(wanted_fields())
     field_indeces=wanted_indeces(data_table[0])
     raw_data = []
-    column_data = table.find_all('tr')
-    for row in column_data[2:]:
-        row_data = row.find_all('td')
-        individual_row_data = [data.text.strip() for data in row_data]
-        #print(individual_row_data)
-        raw_data.append(individual_row_data)
     for row in raw_data:
         data_row = []
         for index in field_indeces:
