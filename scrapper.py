@@ -1,3 +1,4 @@
+#TO DO: Fix Problem with Indeces of Fields and Combine wanted_fields and wanted_indeces
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -17,63 +18,59 @@ def html_parse(url: str) -> str:
     soup = BeautifulSoup(response.text, 'html.parser')
     return soup
 
-#Takes first row of the table and removes all the blank fields and the rank field
-def all_valid_fields(available_fields) -> list[str]:
+#Takes first row of the table and removes all the blank fields and the rank field(not used)
+def all_valid_fields(available_fields: list[str]) -> list[str]:
     valid_fields = []
     for field in available_fields:
         if(field != '' and field != '#'):
             valid_fields.append(field)
     return valid_fields
 
-#Allows user input for desired values, returns a string set of choices
-def wanted_fields(possible_fields) -> list[str]:
-    desired_values = []
+#Allows user input for desired values, returns a string list of choices and a list of indeces
+def wanted_fields(possible_fields: list[str]) -> tuple[list[str], list[int]]:
+    desired_indeces = []
+    desired_fields = []
+    index=0
+
+    #possible_fields used to maintain the index properly for the table columns
     for field in possible_fields:
         while(True):
+            if(field == '' or field == "#"):
+                index+=1
+                break
             decision=input("Would you like "+field+" tracked(Y/N): ")
             if(decision=="Y"):
-                desired_values.append(field)
+                desired_indeces.append(index)
+                desired_fields.append(field)
                 print(field+" field added")
+                index+=1
                 break
             elif(decision=="N"):
+                index+=1
                 break
             else:
                 print('Invalid input')
-    return desired_values
+    return desired_fields, desired_indeces
 
-#Takes a list valid fields and a list of wanted fields and converts it into the indeces of the fields in the table's rows
-def wanted_indeces(valid_fields, fields) -> list[int]:
-    indeces=list()
-    if(valid_fields[0] in fields): #hardcoded because of blank columns messing up indeces
-        indeces.append(1)
-
-    index=3
-    for field in valid_fields:
-        if(field in fields):
-            indeces.append(index)
-        index+=1
-    return indeces
-
-#Takes an input of a table from BeautifulSoup and returns the raw data from that table
-def get_raw_data(table):
+#Takes an input of a table from BeautifulSoup and returns the raw data from that table and all fields of columns
+def get_raw_data(table: list[str]) -> tuple[list[list[str]], list[str]]:
     raw_data = []
     column_data = table.find_all('tr')
+    fields=[data.text.strip() for data in column_data[0]]
+
     for row in column_data[2:]:
         row_data = row.find_all('td')
         individual_row_data = [data.text.strip() for data in row_data]
         raw_data.append(individual_row_data)
-    print(raw_data)
-    return raw_data
+    return raw_data, fields
 
 def main():
     url = input_url()
     soup = html_parse(url)
     table = soup.find_all('table')[0] #first table is always the leaderboard table
 
-    raw_data = get_raw_data(table)
-    valid_fields = all_valid_fields(raw_data[0])
-    users_fields = wanted_fields(valid_fields)
-    field_indeces = wanted_indeces(valid_fields, users_fields)
+    raw_data, possible_fields = get_raw_data(table)
+    users_fields, field_indeces = wanted_fields(possible_fields)
 
     data_table = []
     data_table.append(users_fields)
