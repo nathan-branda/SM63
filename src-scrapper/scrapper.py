@@ -1,4 +1,3 @@
-#TO DO: Fix Problem with Indeces of Fields and Combine wanted_fields and wanted_indeces
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -64,11 +63,13 @@ def get_raw_data(table: list[str]) -> tuple[list[list[str]], list[str]]:
         raw_data.append(individual_row_data)
     return raw_data, fields
 
-def main():
-    url = input_url()
+def get_table(url = input_url()):
     soup = html_parse(url)
     table = soup.find_all('table')[0] #first table is always the leaderboard table
+    return table
 
+def main():
+    table=get_table()
     raw_data, possible_fields = get_raw_data(table)
     users_fields, field_indeces = wanted_fields(possible_fields)
 

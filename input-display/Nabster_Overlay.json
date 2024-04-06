@@ -1,0 +1,171 @@
+{
+    "default_width": 0,
+    "default_height": 0,
+    "space_h": 0,
+    "space_v": 0,
+    "flags": 0,
+    "overlay_width": 527,
+    "overlay_height": 394,
+    "elements": [
+        {
+            "type": 1,
+            "pos": [
+                399,
+                133
+            ],
+            "id": "keyboard button37",
+            "z_level": 0,
+            "mapping": [
+                1442,
+                625,
+                128,
+                128
+            ],
+            "code": 25
+        },
+        {
+            "type": 1,
+            "pos": [
+                399,
+                266
+            ],
+            "id": "keyboard button51",
+            "z_level": 0,
+            "mapping": [
+                1573,
+                887,
+                128,
+                128
+            ],
+            "code": 39
+        },
+        {
+            "type": 1,
+            "pos": [
+                399,
+                0
+            ],
+            "id": "keyboard button54",
+            "z_level": 0,
+            "mapping": [
+                263,
+                1149,
+                128,
+                128
+            ],
+            "code": 42
+        },
+        {
+            "type": 1,
+            "pos": [
+                0,
+                266
+            ],
+            "id": "keyboard button55",
+            "z_level": 0,
+            "mapping": [
+                394,
+                1149,
+                128,
+                128
+            ],
+            "code": 44
+        },
+        {
+            "type": 1,
+            "pos": [
+                133,
+                266
+            ],
+            "id": "keyboard button56",
+            "z_level": 0,
+            "mapping": [
+                525,
+                1149,
+                128,
+                128
+            ],
+            "code": 45
+        },
+        {
+            "type": 1,
+            "pos": [
+                266,
+                266
+            ],
+            "id": "keyboard button57",
+            "z_level": 0,
+            "mapping": [
+                656,
+                1149,
+                128,
+                128
+            ],
+            "code": 46
+        },
+        {
+            "type": 1,
+            "pos": [
+                133,
+                0
+            ],
+            "id": "keyboard button73",
+            "z_level": 0,
+            "mapping": [
+                787,
+                2225,
+                128,
+                128
+            ],
+            "code": 57416
+        },
+        {
+            "type": 1,
+            "pos": [
+                0,
+                133
+            ],
+            "id": "keyboard button74",
+            "z_level": 0,
+            "mapping": [
+                656,
+                2487,
+                128,
+                128
+            ],
+            "code": 57419
+        },
+        {
+            "type": 1,
+            "pos": [
+                133,
+                133
+            ],
+            "id": "keyboard button75",
+            "z_level": 0,
+            "mapping": [
+                787,
+                2487,
+                128,
+                128
+            ],
+            "code": 57424
+        },
+        {
+            "type": 1,
+            "pos": [
+                266,
+                133
+            ],
+            "id": "keyboard button76",
+            "z_level": 0,
+            "mapping": [
+                918,
+                2487,
+                128,
+                128
+            ],
+            "code": 57421
+        }
+    ]
+}
